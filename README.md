@@ -20,4 +20,4 @@ Outra análise feita foi sobre o documento de requisitos ser de um um software d
 
 No arquivo Promise+.arff está o arquivo feito na ferramenta weka. Neste arquivo tem-se todos os requisitos, a lista de id de projetos da indústria, a lista de id de projetos da academia e o rótulo de cada requisito. No arquivo Promise+.csv, tem-se somente o texto dos requisitos e o rótulo.
 
-Para fins de citação, a Promise+ também está hospedada no Zenodo, sob o seguinte DOI: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12805484.svg)](https://doi.org/10.5281/zenodo.12805484)
+Para fins de citação, a Promise+ também está hospedada no Zenodo, sob o seguinte DOI: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12805484.svg)](https://doi.org/10.5281/zenodo.12805484). O artigo está disponível em: https://www.researchgate.net/publication/383232194_Promise_expandindo_a_base_de_dados_de_requisitos_de_software_Promise_exp

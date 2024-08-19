@@ -5,4 +5,5 @@ A Promise+ foi construída seguindo os princípios orientadores da primeira expa
 
 A imagem abaixo apresenta os detalhes da metodologia.
 
-![Meu Logo](imagens/Metodologia da Base Fluxo.jpg)
+![Metodologia da Base Fluxo](https://github.com/user-attachments/assets/4caa0d20-bf41-4bd0-bad0-0c8a5091336a)
+

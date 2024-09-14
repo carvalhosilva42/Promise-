@@ -22,12 +22,13 @@ The Promise+.arff file is available for use with the Weka tool. This file contai
 
 For citation purposes, Promise+ is also hosted on Zenodo under the following DOI: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12805484.svg)](https://doi.org/10.5281/zenodo.12805484). The article is available at: https://shorturl.at/heyS5
 
-A Promise+ pode ser utilizada para as tarefas de:
-  - Classificação Binária entre requisitos Funcionais e Não-Funcionais
-  - Classificação Multiclasse entre requisitos Não-Funcionais
-  - Classificação Multiclasse com todas as classes
+Promise+ can be used for the following tasks:
 
-Abaixo temos um exemplo de utilização da Promise+ em um pipeline de Classificação Multiclasse com todas as classes feita na linguagem Python. O processo envolve importação da Promise+ para um dataframe, transformação das classes textuais em classes numéricas, divisão dos dados em treinamento e teste e, por fim, definição do algoritmo de aprendizado de máquina:
+    - Binary Classification between Functional and Non-Functional requirements
+    - Multiclass Classification among Non-Functional requirements
+    - Multiclass Classification with all classes
+
+Below is an example of using Promise+ in a Multiclass Classification pipeline with all classes, implemented in Python. The process involves importing Promise+ into a dataframe, transforming textual classes into numerical classes, splitting the data into training and testing sets, and finally, defining the machine learning algorithm:
 
 ```python
 import pandas as pd
@@ -38,32 +39,33 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report
 
-# Carregar o CSV em um DataFrame pandas
+# Load the CSV file into a pandas DataFrame
 df = pd.read_csv('Promise+.csv')
 
-# Separar features (texto do requisito) e o target (rótulo)
+# Separate the features (requirement text) and the target (label)
 X = df['Requirement']
 y = df['Label']
 
-# Codificar os rótulos (Label)
+# Encode the labels (Label)
 label_encoder = LabelEncoder()
 y_encoded = label_encoder.fit_transform(y)
 
-# Dividir o conjunto de dados em treino e teste
+# Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
 
-# Criar um pipeline com TF-IDF para vetorização de texto e KNN como classificador
+# Create a pipeline with TF-IDF for text vectorization and KNN as the classifier
 pipeline = Pipeline([
-    ('tfidf', TfidfVectorizer()),  # Vetorizar o texto dos requisitos
-    ('knn', KNeighborsClassifier(n_neighbors=3))  # KNN com 3 vizinhos
+    ('tfidf', TfidfVectorizer()),  # Vectorize the requirement text
+    ('knn', KNeighborsClassifier(n_neighbors=3))  # KNN with 3 neighbors
 ])
 
-# Treinar o modelo
+# Train the model
 pipeline.fit(X_train, y_train)
 
-# Fazer previsões
+# Make predictions
 y_pred = pipeline.predict(X_test)
 
-# Relatório de classificação
+# Classification report
 print(classification_report(y_test, y_pred, target_names=label_encoder.classes_))
+
 

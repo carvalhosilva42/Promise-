@@ -39,7 +39,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report
 
-# Load the CSV file into a pandas DataFrame
+# Load the Promise+ file into a pandas DataFrame
 df = pd.read_csv('Promise+.csv')
 
 # Separate the features (requirement text) and the target (label)

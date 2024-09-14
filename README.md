@@ -20,4 +20,50 @@ Another analysis conducted was to determine whether the requirements document wa
 
 The Promise+.arff file is available for use with the Weka tool. This file contains all the requirements, the list of industry project IDs, the list of academic project IDs, and the label for each requirement. The Promise+.csv file contains only the requirement text and the label.
 
-For citation purposes, Promise+ is also hosted on Zenodo under the following DOI: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12805484.svg)](https://doi.org/10.5281/zenodo.12805484). The article is available at: https://www.researchgate.net/publication/383232194_Promise_expandindo_a_base_de_dados_de_requisitos_de_software_Promise_exp
+For citation purposes, Promise+ is also hosted on Zenodo under the following DOI: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12805484.svg)](https://doi.org/10.5281/zenodo.12805484). The article is available at: https://shorturl.at/heyS5
+
+A Promise+ pode ser utilizada para as tarefas de:
+  - Classificação Binária entre requisitos Funcionais e Não-Funcionais
+  - Classificação Multiclasse entre requisitos Não-Funcionais
+  - Classificação Multiclasse com todas as classes
+
+Abaixo temos um exemplo de utilização da Promise+ em um pipeline de Classificação Multiclasse com todas as classes feita na linguagem Python. O processo envolve importação da Promise+ para um dataframe, transformação das classes textuais em classes numéricas, divisão dos dados em treinamento e teste e, por fim, definição do algoritmo de aprendizado de máquina:
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import classification_report
+
+# Carregar o CSV em um DataFrame pandas
+df = pd.read_csv('Promise+.csv')
+
+# Separar features (texto do requisito) e o target (rótulo)
+X = df['Requirement']
+y = df['Label']
+
+# Codificar os rótulos (Label)
+label_encoder = LabelEncoder()
+y_encoded = label_encoder.fit_transform(y)
+
+# Dividir o conjunto de dados em treino e teste
+X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
+
+# Criar um pipeline com TF-IDF para vetorização de texto e KNN como classificador
+pipeline = Pipeline([
+    ('tfidf', TfidfVectorizer()),  # Vetorizar o texto dos requisitos
+    ('knn', KNeighborsClassifier(n_neighbors=3))  # KNN com 3 vizinhos
+])
+
+# Treinar o modelo
+pipeline.fit(X_train, y_train)
+
+# Fazer previsões
+y_pred = pipeline.predict(X_test)
+
+# Relatório de classificação
+print(classification_report(y_test, y_pred, target_names=label_encoder.classes_))
+

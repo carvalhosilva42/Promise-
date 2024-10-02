@@ -37,14 +37,17 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load the Promise+ file into a pandas DataFrame
-df = pd.read_csv('Promise+.csv')
-
+df = pd.read_csv('Promise+.csv', quotechar="'", quoting=1, encoding='ISO-8859-1')
+print(df.shape)
+print(df.head())
 # Separate the features (requirement text) and the target (label)
-X = df['Requirement']
-y = df['Label']
+X = df['RequirementText']
+y = df['_class_']
 
 # Encode the labels (Label)
 label_encoder = LabelEncoder()
@@ -68,4 +71,11 @@ y_pred = pipeline.predict(X_test)
 # Classification report
 print(classification_report(y_test, y_pred, target_names=label_encoder.classes_))
 
+conf_matrix = confusion_matrix(y_test, y_pred)
 
+plt.figure(figsize=(10, 7))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=label_encoder.classes_, yticklabels=label_encoder.classes_)
+plt.xlabel('Predito')
+plt.ylabel('Real')
+plt.title('Matriz de confusão')
+plt.show()
